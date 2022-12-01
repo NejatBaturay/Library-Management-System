@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "OduncVer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Ödünç Ver</h2>
+<br />
+<br />
+@using (Html.BeginForm("OduncVer", "Home", FormMethod.Post))
+{
+
+<div class="row">
+
+    <label for="inputEmail3" class="control-label col-md-3">Sicil Numarası Giriniz: </label>
+
+    <input type="text" name="SicilNo" required />
+
+
+    <input type="date" name="teslimedilecektarih" required />
+
+
+    <button type="submit" class="btn btn-default">Kitabı Ödünç Ver</button>
+</div>
+
+}

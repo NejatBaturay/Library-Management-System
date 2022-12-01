@@ -1,0 +1,71 @@
+﻿@model  IEnumerable <LibraryMVC.Models.KitapBilgi>
+@{
+    ViewBag.Title = "KitapListele";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<h2>Kitap Listesi</h2>
+
+@using (Html.BeginForm("KitapListele", "Home", FormMethod.Post))
+{
+    <div class="col">
+
+        <input type="text" name="searchstring" placeholder="Kitap Adi Giriniz" />
+        <button type="submit">Ara</button>
+
+    </div>
+}
+
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Kitap Adı</th>
+            <th>Kitap Yazarı</th>
+            <th>Baskı Yılı</th>
+            <th>Eklenme Tarihi</th>
+            <th>Yayınevi</th>     
+            <th>Stok Adedi</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+        <tr>
+            <td>@item.KitapAdi</td>
+            <td>@item.KitapYazari</td>
+            <td>@item.BaskiYil</td>
+            <td>@item.EklenmeTarihi</td>
+            <td>@item.YayinEvi</td>
+            <td>@item.StokDurumu</td>
+            <td>@Html.ActionLink("SİL", "KitapSil", new { id = item.Id }, new { @class = "btn btn-danger" })</td>
+            <td>@Html.ActionLink("GÜNCELLE", "KitapGuncelle", new { id = item.Id }, new { @class = "btn btn-success" })</td>
+            <td>
+                @if (item.StokDurumu == 0)
+                {
+                    <fieldset disabled>
+                        @Html.ActionLink("Kitap Kalmamıştır", "OduncVer", new { id = item.Id }, new { @class = "btn btn-danger" })
+                    </fieldset>
+                }
+                else
+                {
+                    @Html.ActionLink("Ödünç Ver", "OduncVer", new { id = item.Id }, new { @class = "btn btn-primary" })
+                }
+            </td>
+        </tr>
+
+            }
+        }
+    </tbody>
+</table>
+
+
